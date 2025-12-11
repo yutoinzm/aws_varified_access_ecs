@@ -1,0 +1,61 @@
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# TypeScript build output
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+
+# Exclude TypeScript config and source files from build output exclusion
+!jest.config.js
+!bin/*.js
+!lib/*.js
+
+# Node modules
+node_modules
+
+# CDK Context & Staging files
+.cdk.staging/
+cdk.context.json
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Docker
+.dockerignore
+
+# Backup files
+*.bak
+*.backup

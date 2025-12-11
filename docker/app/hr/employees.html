@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人事部ダッシュボード - 従業員管理</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .badge { background: #8b5cf6; color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; }
+        h1 { color: #8b5cf6; }
+        .info { background: #ede9fe; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .logout-btn { position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .logout-btn:hover { background: #dc2626; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <button class="logout-btn" onclick="logout()">🚪 ログアウト</button>
+    <div class="badge">人事部ダッシュボード - 人事部グループのみ</div>
+    <h1>👥 人事部ダッシュボード</h1>
+    <div class="info">
+        <p><strong>部署:</strong> 人事部（HR）</p>
+        <p><strong>アクセス権限:</strong> 人事部グループのみ</p>
+        <p><strong>ポリシー:</strong> IAM Identity Centerの人事部グループに所属</p>
+    </div>
+    <p>このページは<strong>IAM Identity Centerの人事部グループに所属するユーザーのみ</strong>アクセス可能です。</p>
+    <p><a href="/">← トップページに戻る</a></p>
+
+    <script>
+        function logout() {
+            if (confirm('ログアウトしますか？')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.href = '/logout.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

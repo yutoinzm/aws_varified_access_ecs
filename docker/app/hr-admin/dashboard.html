@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人事部管理者ダッシュボード - Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .badge { background: #dc2626; color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; }
+        h1 { color: #dc2626; }
+        .info { background: #fee2e2; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .requirements { background: #fef3c7; padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #f59e0b; }
+        .logout-btn { position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .logout-btn:hover { background: #dc2626; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <button class="logout-btn" onclick="logout()">🚪 ログアウト</button>
+    <div class="badge">人事部管理者ダッシュボード - 人事部グループ + 管理者グループ</div>
+    <h1>👥🔒 人事部管理者ダッシュボード</h1>
+    
+    <div class="info">
+        <p><strong>部署:</strong> 人事部（HR）</p>
+        <p><strong>権限:</strong> 管理者グループ</p>
+        <p><strong>アクセス権限:</strong> 人事部グループ + 管理者グループの両方に所属が必要</p>
+        <p><strong>ポリシー:</strong> IAM Identity Centerの人事部グループかつ管理者グループに所属</p>
+    </div>
+
+    <div class="requirements">
+        <h3>⚠️ アクセス要件</h3>
+        <p>このページにアクセスするには、以下の両方の条件を満たす必要があります：</p>
+        <ol>
+            <li><strong>人事部グループ</strong>: IAM Identity Centerの人事部グループに所属している</li>
+            <li><strong>管理者グループ</strong>: IAM Identity Centerの管理者グループに所属している</li>
+        </ol>
+    </div>
+
+    <h2>🔧 管理機能</h2>
+    <ul>
+        <li>従業員情報の編集・削除</li>
+        <li>給与データの管理</li>
+        <li>採用プロセスの承認</li>
+        <li>人事評価の最終承認</li>
+        <li>システム設定の変更</li>
+    </ul>
+
+    <h2>📊 権限比較</h2>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr style="background: #f3f4f6;">
+            <th style="border: 1px solid #e5e7eb; padding: 10px;">パス</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px;">必要な権限</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;"><code>/hr/*</code></td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">人事部グループのみ</td>
+        </tr>
+        <tr style="background: #fee2e2;">
+            <td style="border: 1px solid #e5e7eb; padding: 10px;"><code>/hr-admin/*</code></td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;"><strong>人事部グループ + 管理者グループ</strong></td>
+        </tr>
+    </table>
+    
+    <p><a href="/">← トップページに戻る</a></p>
+
+    <script>
+        function logout() {
+            if (confirm('ログアウトしますか？')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.href = '/logout.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

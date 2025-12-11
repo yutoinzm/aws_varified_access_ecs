@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Verified Access - ECS Fargate【実践編】</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #10b981;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .success { 
+            color: #10b981; 
+            font-size: 28px; 
+            margin: 20px 0;
+        }
+        .info { 
+            background: #f0f9ff; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        .nav {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+        .nav h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        .nav li {
+            margin: 10px 0;
+        }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #764ba2;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <button class="logout-btn" onclick="logout()">🚪 ログアウト</button>
+    <div class="container">
+        <div class="badge">公開ページ - 認証不要</div>
+        <h1 class="success">✅ アクセス成功！</h1>
+        <p style="font-size: 18px;">AWS Verified Access経由でECS Fargateにアクセスしています。</p>
+        
+        <div class="info">
+            <h2>🔧 接続情報</h2>
+            <p><strong>プロトコル:</strong> HTTPS</p>
+            <p><strong>認証方式:</strong> IAM Identity Center</p>
+            <p><strong>バックエンド:</strong> ECS Fargate（コンテナ）</p>
+            <p><strong>制御方式:</strong> パスベースアクセス制御</p>
+            <p><strong>ゼロトラスト:</strong> 有効</p>
+        </div>
+
+        <div class="nav">
+            <h3>📂 各ページへのアクセス</h3>
+            <ul>
+                <li><span class="emoji">🌐</span><a href="/">トップページ</a> - 公開ページ（誰でもアクセス可能）</li>
+                <li><span class="emoji">📖</span><a href="/public/about.html">公開ページ</a> - 認証不要</li>
+                <li><span class="emoji">🔒</span><a href="/admin/dashboard.html">管理者ダッシュボード</a> - 管理者グループのみ</li>
+                <li><span class="emoji">👥</span><a href="/hr/employees.html">人事部ダッシュボード</a> - 人事部グループのみ</li>
+                <li><span class="emoji">🔐</span><a href="/hr-admin/dashboard.html">人事部管理者ダッシュボード</a> - 人事部グループ + 管理者グループ</li>
+            </ul>
+        </div>
+        
+        <h2>🔒 セキュリティ機能</h2>
+        <div class="feature-list">
+            <div class="feature">
+                <strong>ユーザー認証</strong><br>
+                <small>IAM Identity Center統合</small>
+            </div>
+            <div class="feature">
+                <strong>パスベース制御</strong><br>
+                <small>URLごとに異なる制御</small>
+            </div>
+            <div class="feature">
+                <strong>部署別アクセス</strong><br>
+                <small>属性ベースの制御</small>
+            </div>
+            <div class="feature">
+                <strong>完全ログ記録</strong><br>
+                <small>CloudWatch Logs</small>
+            </div>
+        </div>
+
+        <h2>🚀 技術スタック</h2>
+        <div class="feature-list">
+            <div class="feature">
+                <strong>AWS ECS Fargate</strong><br>
+                <small>コンテナオーケストレーション</small>
+            </div>
+            <div class="feature">
+                <strong>Application Load Balancer</strong><br>
+                <small>負荷分散</small>
+            </div>
+            <div class="feature">
+                <strong>Verified Access</strong><br>
+                <small>ゼロトラストアクセス</small>
+            </div>
+            <div class="feature">
+                <strong>Docker</strong><br>
+                <small>Nginx + HTML</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            if (confirm('ログアウトしますか？\n\n別のユーザーでテストするには、プライベートウィンドウを使用するか、ブラウザのクッキーをクリアしてください。')) {
+                // セッションストレージとローカルストレージをクリア
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                // ログアウト案内ページに遷移
+                window.location.href = '/logout.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

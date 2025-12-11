@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログアウト - AWS Verified Access</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .method {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .method h3 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .method ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .method li {
+            margin: 8px 0;
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        .note {
+            background: #fef3c7;
+            padding: 15px;
+            border-left: 4px solid #f59e0b;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .note strong {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🚪</div>
+        <h1>ログアウト完了</h1>
+        
+        <p>セッションストレージをクリアしました。</p>
+        
+        <div class="method">
+            <h3>🔐 別のユーザーでテストする方法</h3>
+            
+            <p><strong>方法1: プライベートウィンドウを使用（推奨）</strong></p>
+            <ol>
+                <li><strong>Chrome/Edge:</strong> Ctrl+Shift+N（Mac: ⌘+Shift+N）</li>
+                <li><strong>Firefox:</strong> Ctrl+Shift+P（Mac: ⌘+Shift+P）</li>
+                <li><strong>Safari:</strong> ⌘+Shift+N</li>
+                <li>プライベートウィンドウで再度アクセス</li>
+            </ol>
+            
+            <p><strong>方法2: ブラウザを完全に閉じる</strong></p>
+            <ol>
+                <li>すべてのブラウザウィンドウを閉じる</li>
+                <li>ブラウザを再起動</li>
+                <li>再度アクセス</li>
+            </ol>
+            
+            <p><strong>方法3: 別のブラウザを使用</strong></p>
+            <ol>
+                <li>Chrome、Firefox、Safari、Edgeなど別のブラウザで開く</li>
+                <li>それぞれのブラウザで異なるユーザーをテスト可能</li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>💡 ヒント:</strong> IAM Identity Centerのセッションはブラウザごとに保持されます。複数のユーザーを同時にテストしたい場合は、異なるブラウザやプライベートウィンドウを使うと便利です。
+        </div>
+        
+        <a href="/" class="button">🏠 トップページに戻る</a>
+        <a href="javascript:window.close()" class="button">🔒 このタブを閉じる</a>
+    </div>
+</body>
+</html>
+
